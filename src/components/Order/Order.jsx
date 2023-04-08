@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Cart from "../Cart/Cart";
 import { useLoaderData } from "react-router-dom";
 import ReviewItem from "../ReviewItem/ReviewItem";
-import { removeFromDb } from "../../fakedb";
+import { deleteShoppingCart, removeFromDb } from "../../fakedb";
 
 const Order = () => {
     const addedCartProduct = useLoaderData();
@@ -13,6 +13,10 @@ const Order = () => {
         setCart(remaining);
         removeFromDb(id);
     }
+    const handelClearCart= ()=>{
+        setCart([]);
+        deleteShoppingCart();
+    }
 
   return (
     <div className="grid grid-cols-5">
@@ -22,7 +26,7 @@ const Order = () => {
         }
       </div>
       <div className="col-span-1 bg-slate-300">
-        <Cart cart={cart}></Cart>
+        <Cart cart={cart} handelClearCart={handelClearCart}></Cart>
       </div>
     </div>
   );
