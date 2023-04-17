@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Header = () => {
+    const {user, logOut} =useContext(AuthContext);
+    const handleLogOut =()=>{
+        logOut()
+        .then(()=>{})
+        .catch(error=>{
+            console.log(error.message);
+        })
+    }
     return (
         <div className='flex justify-between items-center bg-slate-400 p-3'>
             <div>
@@ -13,6 +22,9 @@ const Header = () => {
                 <Link className='mr-5' to='/manageInventory'>Manage Inventory</Link>
                 <Link className='mr-5' to='/signup'>Sign up</Link>
                 <Link className='mr-5' to='/login'>Login</Link>
+                {
+                    user&& <span>{user.email} <button onClick={handleLogOut} className='bg-red-600 rounded p-2 font-bold text-white my-3'>logOut</button></span>
+                }
             </div>
         </div>
     );
