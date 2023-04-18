@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [error, setError]= useState('');
+  const [message, setMessage] = useState('')
   const {createUser} = useContext(AuthContext);
 
   const handleSubmit = event=>{
     event.preventDefault();
+    setMessage('')
     setError('')
     const form = event.target;
     const email = form.email.value;
@@ -28,6 +30,8 @@ const SignUp = () => {
      .then(result=>{
       const loggedUser = result.user;
       console.log(loggedUser);
+      setMessage('Account created successflly')
+      form.reset();
      })
      .catch(error=>{
       console.error(error.message)
@@ -80,6 +84,7 @@ const SignUp = () => {
             Already have an account? <span className="text-blue-500"><Link to='/login'>Log in</Link></span>
           </p>
           <p className="text-red-400">{error}</p>
+          <p className="text-green-600">{message}</p>
         </div>
       </form>
     </div>

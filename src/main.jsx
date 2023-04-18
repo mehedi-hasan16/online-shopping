@@ -13,6 +13,7 @@ import ManageInverntory from './components/ManageInverntory/ManageInverntory';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import AuthProvider from './providers/AuthProvider';
+import PrivateRoute from './routes/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/manageInventory',
-        element: <ManageInverntory></ManageInverntory>,
+        element: <PrivateRoute><ManageInverntory></ManageInverntory></PrivateRoute>,
       },
       {
         path:'/login',

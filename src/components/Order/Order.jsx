@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Cart from "../Cart/Cart";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import { deleteShoppingCart, removeFromDb } from "../../fakedb";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Order = () => {
     const addedCartProduct = useLoaderData();
@@ -26,7 +28,13 @@ const Order = () => {
         }
       </div>
       <div className="col-span-1 bg-slate-300">
-        <Cart cart={cart} handelClearCart={handelClearCart}></Cart>
+        <Cart cart={cart} handelClearCart={handelClearCart}>
+        <Link to='/manageInventory'> 
+          <button className='bg-yellow-500 rounded p-2 font-bold text-white w-full'>Check Out <FontAwesomeIcon icon={faArrowRight}/> 
+          </button>
+          </Link>
+          
+        </Cart>
       </div>
     </div>
   );
