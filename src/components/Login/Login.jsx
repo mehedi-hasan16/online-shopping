@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const [show, setShow] = useState(false)
   const {userLogin} = useContext(AuthContext);
   const navigate= useNavigate();
   const location = useLocation();
@@ -27,6 +28,7 @@ const Login = () => {
     })
 
   }
+ 
     return (
         <div className="w-[500px] border flex flex-col justify-center items-center mx-auto rounded-lg mt-5">
       <h2 className="text-4xl font-semibold my-5">Login</h2>
@@ -42,16 +44,17 @@ const Login = () => {
             required
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 relative">
           <label htmlFor="password" className="block">Password</label>
           <input
             className="w-96 h-12 border rounded px-2"
-            type="password"
+            type={show?'text':'password'}
             name="password"
             id="password"
             placeholder="at least 6 cheracters"
             required
           />
+          <p className='absolute right-3 bottom-3 cursor-pointer' onClick={()=>setShow(!show)}>{show?<span>Hide</span>:<span>Show</span>}</p>
         </div>
         <div className="mb-4">
           <button className="w-96 h-12 border rounded bg-yellow-100">Login</button>
