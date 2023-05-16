@@ -1,7 +1,7 @@
 import React from "react";
 
 const ReviewItem = ({ product, handelReviewRemove }) => {
-  const {id, img, name, price, shipping } = product;
+  const {_id, img, name, price, shipping } = product;
   return (
     <div className="flex border rounded w-1/2 items-center m-4">
     <img src={img} alt="" className="w-28 rounded p-2" />
@@ -12,7 +12,7 @@ const ReviewItem = ({ product, handelReviewRemove }) => {
             <p>Shopping cost: <span className="text-yellow-500">{shipping}</span></p>
             </div>
         <div>
-            <button onClick={()=>handelReviewRemove(id)} className="bg-red-500 p-4 rounded mr-3 font-bold text-2xl text-white">X</button>
+            <button onClick={()=>handelReviewRemove(_id)} className="bg-red-500 p-4 rounded mr-3 font-bold text-2xl text-white">X</button>
         </div>
       </div>
     </div>

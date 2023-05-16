@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import products from "../Products-data/products.json";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,15 +9,18 @@ import { Link } from "react-router-dom";
 const Shop = () => {
   const [data, setData] = useState([]);
   const [cart, setCart] = useState([]);
+
   useEffect(() => {
-    setData(products);
+    fetch('http://localhost:5000/products')
+    .then(res=>res.json())
+    .then(data=>setData(data))
   }, []);
 
   useEffect(() => {
     const storedCart = getShoppingCart();
     const savedCart = [];
     for (const id in storedCart) {
-      const addedProduct = products.find((product) => product.id === id);
+      const addedProduct = data.find((product) => product._id === id);
       if (addedProduct) {
         const quantity = storedCart[id];
         addedProduct.quantity = quantity;
@@ -26,21 +28,21 @@ const Shop = () => {
       }
     }
     setCart(savedCart);
-  }, [products]);
+  }, [data]);
 
   const handelAddProduct = (product) => {
     let newCart = [];
-    const exist = cart.find((pd) => pd.id === product.id);
+    const exist = cart.find((pd) => pd._id === product._id);
     if (!exist) {
       product.quantity = 1;
       newCart = [...cart, product];
     } else {
       exist.quantity += 1;
-      const remaining = cart.filter((pd) => pd.id !== product.id);
+      const remaining = cart.filter((pd) => pd._id !== product._id);
       newCart = [...remaining, exist];
     }
     setCart(newCart);
-    addToDb(product.id);
+    addToDb(product._id);
   };
 
   const handelClearCart = () => {
@@ -53,7 +55,7 @@ const Shop = () => {
         {data.map((product) => (
           <Product
             product={product}
-            key={product.id}
+            key={product._id}
             handelAddProduct={handelAddProduct}
           ></Product>
         ))}
